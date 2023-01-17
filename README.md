@@ -1,4 +1,5 @@
-Introduction
+# Introduction
+
 Backupped is a backup tool that includes two types of backup.
 1 " Full OS backup
 2 " Backup via a specified path
@@ -10,6 +11,12 @@ OS Compatible to come: Windows
 
 
 Quick start
-Once you've installed restic, start off with creating a repository for your backups:
+-----------
 
-$ soon
+For Linux OS:
+
+    $ Soon
+
+For Windows OS:
+
+    $ Soon
