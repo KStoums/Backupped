@@ -34,7 +34,7 @@ func init() {
 
 				var userOS string
 				if strings.Contains(hostInfo.Platform, "Windows") || strings.Contains(hostInfo.Platform, "windows") {
-					userOS = "D:\\"
+					userOS = "C:\\"
 				} else {
 					userOS = "/"
 				}
