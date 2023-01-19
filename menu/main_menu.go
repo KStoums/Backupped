@@ -5,9 +5,9 @@ import (
 	"Tolnkee-Backup-Test/messages"
 	"Tolnkee-Backup-Test/utils"
 	"fmt"
-	"github.com/shirou/gopsutil/v3/host"
 	"log"
 	"os"
+	"runtime"
 	"strconv"
 	"strings"
 	"time"
@@ -27,19 +27,19 @@ func init() {
 			number:     1,
 			nameOption: "Full OS Backup",
 			function: func() {
-				hostInfo, err := host.Info()
-				if err != nil {
-					log.Fatalln(err)
+				userOS := runtime.GOOS
+
+				var osPath string
+				switch userOS {
+				case "windows":
+					osPath = "C:\\"
+					break
+				case "linux", "darwin":
+					osPath = "/"
+					break
 				}
 
-				var userOS string
-				if strings.Contains(hostInfo.Platform, "Windows") || strings.Contains(hostInfo.Platform, "windows") {
-					userOS = "C:\\"
-				} else {
-					userOS = "/"
-				}
-
-				inputResponse := backup.Backup(userOS)
+				inputResponse := backup.Backup(osPath)
 				fmt.Println(inputResponse)
 				if strings.EqualFold(inputResponse, "y") {
 					utils.ClearTerminal()
