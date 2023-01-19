@@ -1,22 +1,25 @@
 # Introduction
 
-Backupped is a backup tool that includes two types of backup.<br>
+Backupped is a backup tool that includes two types of backup.
 1. Full OS backup
 2. Backup via a specified path
 
-Once the backup is finished, a .tar file will be created and will contain all your data.
+Once the backup is finished, a .zip file will be created and will contain all your data.
 
-Compatible OS: Linux
-OS Compatible to come: Windows
+Compatible OS:
+-----------
+» Linux<br>
+» Windows<br>
+» Darwin<br>
 
 
 Quick start
 -----------
 
-For Linux OS:
+For Linux & Windows
 
-    $ Soon
+    » Download Backupped.exe
+    » Launch Backupped.exe
+    » Choose the type of backup you want
 
-For Windows OS:
-
-    $ Soon
+Note: The .zip file is created at the location of Backupped.exe
