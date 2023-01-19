@@ -7,6 +7,7 @@ const ERROR_OPEN_FILE = "error when open file,"
 const ERROR_GET_FILE_INFO = "error when get file info,"
 const ERROR_WRITE_HEADER = "error when writer file header,"
 const ERROR_COPY_FILE = "error when copy file,"
+const UNKNOWN_OS = "error, your os is not compatible."
 
 const ERROR_FEATURE_SOON = "Feature available soon."
 const ERROR_STRING_CONVERTION_SYNTAX = "I did not understand your choice..."

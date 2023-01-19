@@ -37,6 +37,8 @@ func init() {
 				case "linux", "darwin":
 					osPath = "/"
 					break
+				default:
+					log.Fatalln(messages.UNKNOWN_OS)
 				}
 
 				inputResponse := backup.Backup(osPath)
