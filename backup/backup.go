@@ -16,30 +16,30 @@ import (
 	"time"
 )
 
-func FullBackup() string {
+func Backup(pathToBackup string) string {
 	fmt.Println(messages.FULL_BACKUP_START)
 
 	zipFile, err := os.Create(fmt.Sprintf("./%d.zip", time.Now().Unix()))
 	if err != nil {
-		log.Fatalln(messages.ERROR_CREATE_TAR_FILE, err)
+		log.Fatalln(messages.ERROR_CREATE_ZIP_FILE, err)
 	}
 
 	newWriter := zip.NewWriter(zipFile)
 
-	err = filepath.Walk(os.Getenv("OS_PATH"), func(path string, info fs.FileInfo, err error) error {
+	err = filepath.Walk(pathToBackup, func(path string, info fs.FileInfo, err error) error {
 		if err != nil {
 			log.Fatalln(messages.ERROR_FILEPATH_WALK, err)
 		}
 
 		if info.IsDir() {
-			relPath, err := filepath.Rel(os.Getenv("OS_PATH"), path)
+			relPath, err := filepath.Rel(pathToBackup, path)
 			if err != nil {
 				log.Fatalln(messages.ERROR_GET_RELPATH, err)
 			}
 
 			header, err := zip.FileInfoHeader(info)
 			if err != nil {
-				log.Fatalln(messages.ERROR_CREATE_TAR_HEADER, err)
+				log.Fatalln(messages.ERROR_CREATE_ZIP_HEADER, err)
 			}
 			header.Name = relPath + "/"
 			header.Method = zip.Deflate
@@ -60,14 +60,14 @@ func FullBackup() string {
 				log.Fatalln(messages.ERROR_GET_FILE_INFO, err)
 			}
 
-			relPath, err := filepath.Rel(os.Getenv("OS_PATH"), path)
+			relPath, err := filepath.Rel(pathToBackup, path)
 			if err != nil {
 				log.Fatalln(messages.ERROR_GET_RELPATH, err)
 			}
 
 			header, err := zip.FileInfoHeader(fileInfo)
 			if err != nil {
-				log.Fatalln(messages.ERROR_CREATE_TAR_HEADER, err)
+				log.Fatalln(messages.ERROR_CREATE_ZIP_HEADER, err)
 			}
 			header.Name = relPath
 			header.Method = zip.Deflate
@@ -82,7 +82,7 @@ func FullBackup() string {
 				progressbar.OptionEnableColorCodes(true),
 				progressbar.OptionShowBytes(true),
 				progressbar.OptionSetDescription("Backup in progress"),
-				progressbar.OptionSetWidth(15),
+				progressbar.OptionFullWidth(),
 				progressbar.OptionSetTheme(progressbar.Theme{
 					Saucer:        "[yellow]•[reset]",
 					SaucerHead:    "[yellow]●[reset]",

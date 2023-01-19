@@ -12,10 +12,10 @@ func ClearTerminal() {
 	return
 }
 
-func ClearTerminalAndOpenFunc(t time.Duration, e string, m func()) {
+func ClearTerminalAndOpenFunc(t time.Duration, msg string, function func()) {
 	ClearTerminal()
-	fmt.Println(e)
+	fmt.Println(msg)
 	time.Sleep(t)
 	ClearTerminal()
-	m()
+	function()
 }

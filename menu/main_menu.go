@@ -5,6 +5,8 @@ import (
 	"Tolnkee-Backup-Test/messages"
 	"Tolnkee-Backup-Test/utils"
 	"fmt"
+	"log"
+	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -24,7 +26,7 @@ func init() {
 			number:     1,
 			nameOption: "Full OS Backup",
 			function: func() {
-				inputResponse := backup.FullBackup()
+				inputResponse := backup.Backup(os.Getenv("OS_PATH"))
 				fmt.Println(inputResponse)
 				if strings.EqualFold(inputResponse, "y") {
 					utils.ClearTerminal()
@@ -44,8 +46,37 @@ func init() {
 			number:     2,
 			nameOption: "Backup of a specific directory",
 			function: func() {
-				utils.ClearTerminalAndOpenFunc(3*time.Second, messages.ERROR_FEATURE_SOON, MainMenu)
-				return
+				var path string
+				for {
+					utils.ClearTerminal()
+					fmt.Print(messages.ENTER_YOUR_PATH)
+					fmt.Scanln(&path)
+
+					_, err := os.Open(path)
+					if err != nil {
+						if err == os.ErrPermission {
+							log.Fatalln(messages.ERROR_OPEN_FILE, err)
+						}
+
+						fmt.Println(messages.ERROR_OPEN_FILE)
+					}
+
+					break
+				}
+
+				inputResponse := backup.Backup(path)
+				if strings.EqualFold(inputResponse, "y") {
+					utils.ClearTerminal()
+					MainMenu()
+					return
+				}
+
+				if strings.EqualFold(inputResponse, "n") {
+					utils.ClearTerminal()
+					fmt.Print(messages.EXIT_APP)
+					time.Sleep(3 * time.Second)
+					return
+				}
 			},
 		},
 		{
